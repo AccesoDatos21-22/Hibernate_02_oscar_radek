@@ -4,12 +4,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-public class Seguro {
+public class Seguro implements Serializable {
     private int idseguro;
     private String nif;
     private String nombre;
@@ -162,5 +163,22 @@ public class Seguro {
     @Override
     public int hashCode() {
         return Objects.hash(idseguro, nif, nombre, ape1, ape2, edad, sexo, casado, numhijos, fechacreacion, tiposeguro);
+    }
+
+    @Override
+    public String toString() {
+        return "Seguro{" +
+                "idseguro=" + idseguro +
+                ", nif='" + nif + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", ape1='" + ape1 + '\'' +
+                ", ape2='" + ape2 + '\'' +
+                ", edad=" + edad +
+                ", sexo=" + sexo +
+                ", casado='" + casado + '\'' +
+                ", numhijos=" + numhijos +
+                ", fechacreacion=" + fechacreacion +
+                ", tiposeguro='" + tiposeguro + '\'' +
+                '}';
     }
 }

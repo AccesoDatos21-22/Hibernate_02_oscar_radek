@@ -1,13 +1,10 @@
 import def.Seguro;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.sql.SQLException;
+import javax.persistence.*;
 
 public class SeguroPersistent {
-    static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("prueba");
+    static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Prueba");
+
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
 
@@ -45,7 +42,7 @@ public class SeguroPersistent {
     public Seguro buscar(int idSeguro) {
         Seguro seguro = null;
         iniciarTransaccion();
-        seguro=this.entityManager.find(Seguro.class,idSeguro);
+        seguro=entityManager.find(Seguro.class,idSeguro);
         liberar();
         return seguro;
     }
