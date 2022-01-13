@@ -1,24 +1,25 @@
 import def.Seguro;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 public class SeguroPersistent {
     static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Prueba");
 
-    private EntityManager entityManager;
+    private EntityManager manager;
     private EntityTransaction entityTransaction;
 
     public SeguroPersistent() {
-        entityManager = entityManagerFactory.createEntityManager();
+        manager = entityManagerFactory.createEntityManager();
     }
 
     public void insertarSeguro(Seguro seguro) {
         try {
             iniciarTransaccion();
-            entityManager.persist(seguro);
+            manager.persist(seguro);
             entityTransaction.commit();
-        }catch(Exception e){
-            System.err.println("Error:" + e.getMessage());
         } finally {
             if (entityTransaction.isActive())
                 entityTransaction.rollback();
@@ -28,27 +29,45 @@ public class SeguroPersistent {
 
 
     public void eliminarSeguro(Seguro seguro) {
-        iniciarTransaccion();
-
-        liberar();
+        try {
+            iniciarTransaccion();
+            manager.remove(seguro);
+            entityTransaction.commit();
+        } finally {
+            if (entityTransaction.isActive())
+                entityTransaction.rollback();
+            liberar();
+        }
     }
 
     public void actualizarSeguro(Seguro seguro) {
-        iniciarTransaccion();
-
-        liberar();
+        try {
+            iniciarTransaccion();
+            manager.merge(seguro);
+            entityTransaction.commit();
+        } finally {
+            if (entityTransaction.isActive())
+                entityTransaction.rollback();
+            liberar();
+        }
     }
 
     public Seguro buscar(int idSeguro) {
-        Seguro seguro = null;
-        iniciarTransaccion();
-        seguro=entityManager.find(Seguro.class,idSeguro);
-        liberar();
+        Seguro seguro;
+        try {
+            iniciarTransaccion();
+            seguro = manager.find(Seguro.class, idSeguro);
+            entityTransaction.commit();
+        } finally {
+            if (entityTransaction.isActive())
+                entityTransaction.rollback();
+            liberar();
+        }
         return seguro;
     }
 
     private void iniciarTransaccion() {
-        entityTransaction = entityManager.getTransaction();
+        entityTransaction = manager.getTransaction();
         entityTransaction.begin();
 
     }

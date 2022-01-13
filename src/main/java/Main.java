@@ -1,19 +1,18 @@
 import def.Seguro;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.sql.Timestamp;
 
 public class Main {
     public static void main(String[] args) {
 
-        Seguro seguro = new Seguro(338, "test04", "Juan", "Pepe", "Aler",
-                19, 2, "S", 2, Timestamp.valueOf("2021-07-02 04:04:05"), "No-epic");
+        Seguro seguro = new Seguro(338, "test05", "Pedro", "Gonzalez", "Perez",
+                34, 1, "S", 12, Timestamp.valueOf("2021-12-02 04:04:05"), "epic");
 
 
         SeguroPersistent seguroPersistent = new SeguroPersistent();
-            seguroPersistent.insertarSeguro(seguro);
+        seguroPersistent.insertarSeguro(seguro);
+//        seguroPersistent.actualizarSeguro(seguro);
+//        seguroPersistent.eliminarSeguro(seguro);
         System.out.println(seguroPersistent.buscar(338));
 
 
