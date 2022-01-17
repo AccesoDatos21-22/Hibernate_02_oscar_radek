@@ -1,31 +1,30 @@
 package def;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 public class Seguro implements Serializable {
+    public  enum Seguros{HOGAR,COCHE,MOTO,VIAJE}
+    public  enum Sexos{HOMBRE,MUJER}
     private int idseguro;
     private String nif;
     private String nombre;
     private String ape1;
     private String ape2;
     private int edad;
-    private int sexo;
+    private Sexos sexo;
     private String casado;
     private int numhijos;
     private Timestamp fechacreacion;
-    private String tiposeguro;
+    private Seguros tiposeguro;
     private Boolean mayorEdad;
 
 
-    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, int sexo, String casado, int numhijos, Timestamp fechacreacion, String tiposeguro) {
+
+    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro) {
         this.idseguro = idseguro;
         this.nif = nif;
         this.nombre = nombre;
@@ -40,7 +39,7 @@ public class Seguro implements Serializable {
         this.mayorEdad=edad>=18;
 
     }
-    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, int sexo, String casado, int numhijos, Timestamp fechacreacion, String tiposeguro) {
+    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro) {
         this.nif = nif;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -121,12 +120,13 @@ public class Seguro implements Serializable {
     }
 
     @Basic
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "SEXO")
-    public int getSexo() {
+    public Sexos getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(Sexos sexo) {
         this.sexo = sexo;
     }
 
@@ -162,13 +162,16 @@ public class Seguro implements Serializable {
 
     @Basic
     @Column(name = "TIPOSEGURO")
-    public String getTiposeguro() {
+    @Enumerated(EnumType.STRING)
+    public Seguros getTiposeguro() {
         return tiposeguro;
     }
 
-    public void setTiposeguro(String tiposeguro) {
+    public void setTiposeguro(Seguros tiposeguro) {
         this.tiposeguro = tiposeguro;
     }
+
+
 
 
     @Override
@@ -201,6 +204,7 @@ public class Seguro implements Serializable {
                 ", mayoEdad='" + mayorEdad + '\'' +
                 '}';
     }
+
     @Basic
     @Column(name = "MAYORDEEDAD")
     public Boolean getMayorEdad() {
