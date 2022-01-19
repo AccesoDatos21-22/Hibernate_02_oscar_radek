@@ -85,7 +85,7 @@ public class SeguroTest {
     @Test
     @DisplayName("Comprobar seguro")
     public void testTipoSeguro() {
-        Seguro mayor1 = new Seguro(885, "casasd", "oscar", "gonzalez", "Strozzi",
+        Seguro mayor1 = new Seguro(885, "casas", "oscar", "gonzalez", "Strozzi",
                 20, Seguro.Sexos.HOMBRE, "N", 0, Timestamp.valueOf("2021-05-02 04:04:05"), Seguro.Seguros.COCHE,  Date.valueOf("2001-12-03"));
 //        seguroPersistent.insertarSeguro(mayor1);
 
