@@ -3,6 +3,7 @@ package def;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -25,9 +26,10 @@ public class Seguro implements Serializable {
     private Seguros tiposeguro;
     private Boolean mayorEdad;
     private Date fechaNacimiento;
+    private Time horaContacto;
 
 
-    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento) {
+    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento,Time horaContacto) {
         this.idseguro = idseguro;
         this.nif = nif;
         this.nombre = nombre;
@@ -40,11 +42,12 @@ public class Seguro implements Serializable {
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
         this.mayorEdad = edad >= 18;
+        this.horaContacto= horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento) {
+    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento,Time horaContacto) {
         this.nif = nif;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -56,6 +59,7 @@ public class Seguro implements Serializable {
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
         this.mayorEdad = edad >= 18;
+        this.horaContacto= horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -183,6 +187,16 @@ public class Seguro implements Serializable {
         return fechaNacimiento;
     }
 
+    @Basic
+    @Column(name = "HORACONTACTO")
+    public Time getHoraContacto() {
+        return horaContacto;
+    }
+
+    public void setHoraContacto(Time horaContacto) {
+        this.horaContacto = horaContacto;
+    }
+
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -216,6 +230,7 @@ public class Seguro implements Serializable {
                 ", tiposeguro='" + tiposeguro + '\'' +
                 ", mayoEdad='" + mayorEdad + '\'' +
                 ", fechaNac='" + fechaNacimiento + '\'' +
+                ", horaContacto='" + horaContacto + '\'' +
                 '}';
     }
 
