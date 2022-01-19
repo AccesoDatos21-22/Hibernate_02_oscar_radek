@@ -4,7 +4,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -31,9 +30,10 @@ public class Seguro implements Serializable {
     private Date fechaNacimiento;
     private Time horaContacto;
     private char[] claves;
+    private String comentarios;
 
 
-    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves) {
+    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves, String comentarios) {
         this.idseguro = idseguro;
         this.nif = nif;
         this.nombre = nombre;
@@ -46,13 +46,14 @@ public class Seguro implements Serializable {
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
         this.mayorEdad = edad >= 18;
-        this.horaContacto= horaContacto;
+        this.horaContacto = horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
         this.claves = claves;
+        this.comentarios = comentarios;
     }
 
-    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves) {
+    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves, String comentarios) {
         this.nif = nif;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -64,10 +65,11 @@ public class Seguro implements Serializable {
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
         this.mayorEdad = edad >= 18;
-        this.horaContacto= horaContacto;
+        this.horaContacto = horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
         this.claves = claves;
+        this.comentarios = comentarios;
     }
 
 
@@ -187,8 +189,8 @@ public class Seguro implements Serializable {
         this.tiposeguro = tiposeguro;
     }
 
-@Basic
-@Column(name = "FECHANACIMIENTO")
+    @Basic
+    @Column(name = "FECHANACIMIENTO")
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -216,6 +218,17 @@ public class Seguro implements Serializable {
 
     public void setClaves(char[] claves) {
         this.claves = claves;
+    }
+
+    @Basic
+    @Lob
+    @Column(name = "COMENTARIOS", columnDefinition = "BLOB")
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(String commentarios) {
+        this.comentarios = commentarios;
     }
 
     @Override
@@ -249,6 +262,7 @@ public class Seguro implements Serializable {
                 ", fechaNac='" + fechaNacimiento + '\'' +
                 ", horaContacto='" + horaContacto + '\'' +
                 ", claves='" + claves + '\'' +
+                ", comments='" + comentarios + '\'' +
                 '}';
     }
 
