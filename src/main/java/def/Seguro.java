@@ -1,7 +1,10 @@
 package def;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -27,9 +30,10 @@ public class Seguro implements Serializable {
     private Boolean mayorEdad;
     private Date fechaNacimiento;
     private Time horaContacto;
+    private char[] claves;
 
 
-    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento,Time horaContacto) {
+    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves) {
         this.idseguro = idseguro;
         this.nif = nif;
         this.nombre = nombre;
@@ -45,9 +49,10 @@ public class Seguro implements Serializable {
         this.horaContacto= horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
+        this.claves = claves;
     }
 
-    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento,Time horaContacto) {
+    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento, Time horaContacto, char[] claves) {
         this.nif = nif;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -62,6 +67,7 @@ public class Seguro implements Serializable {
         this.horaContacto= horaContacto;
 
         this.fechaNacimiento = fechaNacimiento;
+        this.claves = claves;
     }
 
 
@@ -201,6 +207,17 @@ public class Seguro implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    @Basic
+    @Lob
+    @Column(name = "CLAVES", columnDefinition = "BLOB")
+    public char[] getClaves() {
+        return claves;
+    }
+
+    public void setClaves(char[] claves) {
+        this.claves = claves;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -231,6 +248,7 @@ public class Seguro implements Serializable {
                 ", mayoEdad='" + mayorEdad + '\'' +
                 ", fechaNac='" + fechaNacimiento + '\'' +
                 ", horaContacto='" + horaContacto + '\'' +
+                ", claves='" + claves + '\'' +
                 '}';
     }
 
