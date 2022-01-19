@@ -2,13 +2,16 @@ package def;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 public class Seguro implements Serializable {
-    public  enum Seguros{HOGAR,COCHE,MOTO,VIAJE}
-    public  enum Sexos{HOMBRE,MUJER}
+    public enum Seguros {HOGAR, COCHE, MOTO, VIAJE}
+
+    public enum Sexos {HOMBRE, MUJER}
+
     private int idseguro;
     private String nif;
     private String nombre;
@@ -21,10 +24,10 @@ public class Seguro implements Serializable {
     private Timestamp fechacreacion;
     private Seguros tiposeguro;
     private Boolean mayorEdad;
+    private Date fechaNacimiento;
 
 
-
-    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro) {
+    public Seguro(int idseguro, String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento) {
         this.idseguro = idseguro;
         this.nif = nif;
         this.nombre = nombre;
@@ -36,10 +39,12 @@ public class Seguro implements Serializable {
         this.numhijos = numhijos;
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
-        this.mayorEdad=edad>=18;
+        this.mayorEdad = edad >= 18;
 
+        this.fechaNacimiento = fechaNacimiento;
     }
-    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro) {
+
+    public Seguro(String nif, String nombre, String ape1, String ape2, int edad, Sexos sexo, String casado, int numhijos, Timestamp fechacreacion, Seguros tiposeguro, Date fechaNacimiento) {
         this.nif = nif;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -50,8 +55,9 @@ public class Seguro implements Serializable {
         this.numhijos = numhijos;
         this.fechacreacion = fechacreacion;
         this.tiposeguro = tiposeguro;
-        this.mayorEdad=edad>=18;
+        this.mayorEdad = edad >= 18;
 
+        this.fechaNacimiento = fechaNacimiento;
     }
 
 
@@ -171,8 +177,15 @@ public class Seguro implements Serializable {
         this.tiposeguro = tiposeguro;
     }
 
+@Basic
+@Column(name = "FECHANACIMIENTO")
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 
-
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -202,6 +215,7 @@ public class Seguro implements Serializable {
                 ", fechacreacion=" + fechacreacion +
                 ", tiposeguro='" + tiposeguro + '\'' +
                 ", mayoEdad='" + mayorEdad + '\'' +
+                ", fechaNac='" + fechaNacimiento + '\'' +
                 '}';
     }
 
@@ -212,6 +226,6 @@ public class Seguro implements Serializable {
     }
 
     public void setMayorEdad(Boolean mayorEdad) {
-        this.mayorEdad = edad>=18;
+        this.mayorEdad = edad >= 18;
     }
 }
